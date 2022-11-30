@@ -19,19 +19,11 @@
 
     <script>
       async function main() {
-        debugger;
         console.log("start");
-        let payments = Square.payments(
+        const payments = Square.payments(
           "sandbox-sq0idb-cUXWvFoMrKUdJlUUtIuBvw",
           "LHJN66MKWAAGM"
         );
-
-        payments = payments.paymentRequest({
-          total: {
-            amount: 100,
-            currencyCode: "USD",
-          },
-        });
 
         console.log(payments, "payments");
 
