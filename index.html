@@ -19,37 +19,109 @@
 
     <script>
       async function main() {
-        console.log("start");
+        // console.log("start");
+        // const payments = Square.payments(
+        //   "sandbox-sq0idb-cUXWvFoMrKUdJlUUtIuBvw",
+        //   "LHJN66MKWAAGM"
+        // );
+
+        // console.log(payments, "payments");
+
+        // const cardOptions = {
+        //   style: {
+        //     input: {
+        //       backgroundColor: "red",
+        //     },
+        //   },
+        // };
+
+        // const card = await payments.card(cardOptions);
+        // console.log(card, "cards");
+
+        // await card.attach("#card-container");
+
+        // async function eventHandler(event) {
+        //   event.preventDefault();
+
+        //   try {
+        //     const result = await card.tokenize();
+
+        //     if (result.status === "OK") {
+        //       alert(JSON.stringify(result));
+        //       console.log(`Payment token is ${JSON.parse(result)}`);
+        //     }
+        //   } catch (e) {
+        //     console.error(e);
+        //   }
+        // }
+
+        // const cardButton = document.getElementById("card-button");
+
+        // cardButton.addEventListener("click", eventHandler);
+        const paymentRequest = {
+          countryCode: "US",
+
+          currencyCode: "USD",
+
+          lineItems: [
+            { amount: "1.23", label: "Cat", pending: false },
+
+            { amount: "4.56", label: "Dog", pending: false },
+          ],
+
+          shippingLineItems: [
+            { amount: "0.00", label: "FREE", pending: false },
+          ],
+
+          taxLineItems: [
+            { amount: "0.60", label: "State Tax", pending: false },
+          ],
+
+          discounts: [
+            { amount: "1.00", label: "Holiday Discount", pending: false },
+          ],
+
+          requestBillingContact: false,
+
+          requestShippingContact: true,
+
+          shippingContact: {
+            addressLines: ["1 Test St", ""],
+
+            city: "San Francisco",
+
+            countryCode: "US",
+
+            email: "test@squareup.com",
+
+            familyName: "First Name",
+
+            givenName: "Last Name",
+
+            phone: "+12345678910",
+
+            postalCode: "11111",
+
+            state: "CA",
+          },
+
+          shippingOptions: [
+            { amount: "0.00", id: "FREE", label: "Free" },
+
+            { amount: "9.99", id: "XP", label: "Express" },
+          ],
+
+          total: { amount: "5.79", label: "Total", pending: false },
+        };
+
         const payments = Square.payments(
           "sandbox-sq0idb-cUXWvFoMrKUdJlUUtIuBvw",
           "LHJN66MKWAAGM"
         );
 
-        console.log(payments, "payments");
+        const req = await payments.paymentRequest(paymentRequest);
 
-        const card = await payments.card();
-        console.log(card, "cards");
-
-        await card.attach("#card-container");
-
-        async function eventHandler(event) {
-          event.preventDefault();
-
-          try {
-            const result = await card.tokenize();
-
-            if (result.status === "OK") {
-              alert(JSON.stringify(result));
-              console.log(`Payment token is ${JSON.parse(result)}`);
-            }
-          } catch (e) {
-            console.error(e);
-          }
-        }
-
-        const cardButton = document.getElementById("card-button");
-
-        cardButton.addEventListener("click", eventHandler);
+        console.log(req);
       }
 
       main();
